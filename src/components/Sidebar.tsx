@@ -62,9 +62,11 @@ const Sidebar: FC = () => {
 			)}
 			<div className="sidebar">
 				<div className="sidebar__header">
-					<div className="avatar avatar--sm">
-						{user && user.photoURL ? <img src={user.photoURL} alt="User Avatar" /> : <HiUserCircle />}
-					</div>
+					{user && user.photoURL ? (
+						<img className="avatar avatar--sm" src={user.photoURL} alt="User Avatar" />
+					) : (
+						<HiUserCircle className="avatar avatar--sm" />
+					)}
 					<div className="sidebar__header__right">
 						<div className="icon" onClick={createRoom}>
 							<MdChat />

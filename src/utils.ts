@@ -32,3 +32,30 @@ export const getColor = (id:string):string => {
     else 
         return "#" + getRandomHex()
 }
+
+
+export const formatDate = (date: Date) => {
+    const now = new Date();
+    const diffDays = Math.ceil(
+        Math.abs((
+            Date.UTC(
+                now.getFullYear(), 
+                now.getMonth(), 
+                now.getDate()
+            )
+            - Date.UTC(
+                date.getFullYear(), 
+                date.getMonth(), 
+                date.getDate()
+            )
+        ) / (1000 * 60 * 60 * 24))
+    );
+    const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    if(diffDays < 1){
+        return time;
+    }else if(diffDays < 2){
+        return "Yesterday, "+time;
+    }else{
+        return date.toLocaleDateString()+ ', ' + time;
+    }
+}

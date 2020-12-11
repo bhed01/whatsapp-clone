@@ -55,6 +55,10 @@ a {
 	text-decoration: none;
 }
 
+svg {
+	display: block;
+}
+
 #root {
 	display: grid;
 	place-items: center;
@@ -132,15 +136,12 @@ code {
 }
 
 .avatar {
-	overflow: hidden;
-	border-radius: 1.5em;
 	height: 1em;
 	width: 1em;
-	color: var(--icon-clr);
+	border-radius: 1em;
+	object-fit: cover;
 	font-size: 3rem;
-	& > * {
-		width: 1em;
-	}
+	color: var(--icon-clr);
 	&--sm {
 		font-size: 2.5rem;
 	}
@@ -245,10 +246,6 @@ code {
 
 .active {
 	background-color: var(--hover-clr);
-}
-
-svg {
-	display: block;
 }
 
 .chatroom {

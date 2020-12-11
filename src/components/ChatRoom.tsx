@@ -5,7 +5,7 @@ import firebase from 'firebase/app'
 import { HiDotsVertical } from 'react-icons/hi';
 
 import { UserContext, UserContextType } from './UserProvider';
-import { showDropdown, getColor } from '../utils'
+import { showDropdown, getColor, formatDate } from '../utils'
 import db from '../firebase';
 import chat_bg from './chat-bg.png';
 import ChatRoomFooter from './ChatRoomFooter';
@@ -58,6 +58,10 @@ const ChatRoom: FC = () => {
         }
     }, [roomId])
 
+    useEffect(() => {
+		bodyRef.current?.scrollTo(0, bodyRef.current.scrollHeight);
+    })
+
     if(!roomExists){
         return <Redirect to="/" />
     }
@@ -65,12 +69,10 @@ const ChatRoom: FC = () => {
 	return (
 		<div className="chatroom">
 			<div className="chatroom__header">
-				<div className="avatar avatar--sm">
-                    <img alt="Room Avatar" src={`https://picsum.photos/seed/${roomName.slice(0, 4) + roomId.slice(0, 4)}/64.webp`} />
-				</div>
+                <img className="avatar avatar--sm" alt="Room Avatar" src={`https://picsum.photos/seed/${roomName.slice(0, 4) + roomId.slice(0, 4)}/64.webp`} />
 				<div className="chatroom__header__info">
 					<h3>{roomName}</h3>
-                    <p>{(messages?.length > 0) ?'Last activity at ' + messages[messages.length - 1].timestamp.toDate().toLocaleString():'No activity yet'}</p>
+                    <p>{(messages?.length > 0) ?'Last activity ' + formatDate(messages[messages.length - 1].timestamp.toDate()):'No activity yet'}</p>
 				</div>
 				<div className="dropdown-btn">
                     <div className="icon" onClick={showDropdown}>
@@ -87,7 +89,7 @@ const ChatRoom: FC = () => {
                         <div key={message.id} className={`chat ${user?.uid === message.author.id && 'chat--reciever'}`}>
                             <h4 className="chat__author" style={{color:getColor(message.author.id)}}>{message.author.name}</h4>
                             <p className="chat__message">{message.message}</p>
-                            <small className="chat__timestamp">{new Date(message.timestamp.toDate()).toLocaleString()}</small>
+                            <small className="chat__timestamp">{formatDate(message.timestamp.toDate())}</small>
                         </div>
                     ))
                 }

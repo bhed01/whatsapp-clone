@@ -31,12 +31,11 @@ const SidebarChat: FC<Props> = ({ id, name }) => {
 	return (
 		<Link to={`/rooms/${id}`}>
 			<div className="sidebar__chat">
-				<div className="avatar">
-					<img
-						alt="Room Avatar"
-						src={`https://picsum.photos/seed/${name.slice(0, 4) + id.slice(0, 4)}/64.webp`}
-					/>
-				</div>
+				<img
+					className="avatar"
+					alt="Room Avatar"
+					src={`https://picsum.photos/seed/${name.slice(0, 4) + id.slice(0, 4)}/64.webp`}
+				/>
 				<div className="sidebar__chat__info">
 					<h2>{name}</h2>
 					<p>{lastMessage && lastMessage.message ? truncate(lastMessage.message, 30) : 'No messages yet'}</p>
